@@ -1,0 +1,18 @@
+{
+  "template": "https://github.com/woltapp/wolt-python-package-cookiecutter.git",
+  "commit": "6669a067eeaaed3bee84312428a3e94cd13295f2",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "author_name": "Reynaldo Gil",
+      "author_email": "gilcu2@gmail.com",
+      "github_username": "gilcu2",
+      "project_name": "scheduling_formatter",
+      "project_slug": "scheduling_formatter",
+      "package_name": "scheduling_formatter",
+      "project_short_description": "Format open hours descriptions",
+      "_template": "https://github.com/woltapp/wolt-python-package-cookiecutter.git"
+    }
+  },
+  "directory": null
+}
