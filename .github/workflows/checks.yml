@@ -33,7 +33,7 @@ jobs:
       - uses: ./.github/actions/python-poetry-env
       - run: poetry run pre-commit run --all-files
 
-  test:
+  checks:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -44,4 +44,6 @@ jobs:
       - uses: ./.github/actions/python-poetry-env
         with:
           python-version: ${{ matrix.python-version }}
-      - run: poetry run pytest
+      - run: poetry run tools/lint.sh
+      - run: poetry run tools/type_check.sh
+      - run: poetry run tools/test.sh
