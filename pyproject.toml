@@ -33,6 +33,7 @@ packages = [
 python = ">=3.7.1, <4.0"
 fastapi = "^0.85.0"
 uvicorn = "^0.18.3"
+requests = "^2.28.1"
 
 [tool.poetry.dev-dependencies]
 autoflake = "*"
@@ -57,6 +58,9 @@ pytest-cov = "*"
 python-kacl = "*"
 pyupgrade = "*"
 tryceratops = "*"
+pytest-sugar = "*"
+pytest-xdist = "*"
+pytest-timeout = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
