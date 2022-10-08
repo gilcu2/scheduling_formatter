@@ -17,4 +17,5 @@ async def hello_parameters(name: str, number: int = 0) -> Dict[str, str]:
 
 @app.post("/format_scheduling")
 async def format_scheduling(scheduling: Scheduling) -> str:
-    return f"{scheduling}"
+    print(f"scheduling: {scheduling}")
+    return f"{format(scheduling)}"

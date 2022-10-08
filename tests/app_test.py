@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 from app import app
+import json
 
 client = TestClient(app)
 
@@ -86,5 +87,6 @@ def test_format_scheduling():
     response = client.post("/format_scheduling",)
 
     # Then response must be the expected
+    print(f"response: {response.text}")
     assert response.status_code == 200
     assert response.text.strip() == expected
