@@ -1,6 +1,7 @@
 from scheduling_formatter.week_formatter import \
     format_from_scheduling, format_from_formatted_days, WeekDays
 from scheduling_formatter.day_formatter import Action, ActionType
+from utils.str_extensions import clean
 
 
 def test_format_from_formatted_days():
@@ -12,15 +13,16 @@ def test_format_from_formatted_days():
             A restaurant is open:
             Monday: 9 AM - 8 PM
             Tuesday: Closed
-            wednesday: Closed
-            thursday: Closed
-            Tuesday: Closed
-            Tuesday: Closed
-            Tuesday: Closed
-        """.strip()
+            Wednesday: Closed
+            Thursday: Closed
+            Friday: Closed
+            Saturday: Closed
+            Sunday: Closed
+    """
+    expected = clean(expected)
 
     # When format
-    formatted = format_from_formatted_days(formatted_days)
+    formatted = format_from_formatted_days(formatted_days).strip()
 
     # Then results is the expected
     assert formatted == expected

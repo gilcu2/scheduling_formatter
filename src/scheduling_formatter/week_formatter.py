@@ -1,6 +1,6 @@
 from enum import Enum
 from typing import Dict
-from scheduling_formatter.day_formatter import Day_Scheduling, format_day, check_day
+from scheduling_formatter.day_formatter import Day_Scheduling, format_day, check_day_scheduling, closed_phrase
 from option import Result, Ok, Err
 
 
@@ -29,7 +29,7 @@ def fix(scheduling: Week_Scheduling) -> Week_Scheduling:
 
 def check(scheduling: Week_Scheduling) -> Result[None, str]:
     for day in WeekDays:
-        check_day_result = check_day(scheduling[day], scheduling[next_day[day]])
+        check_day_result = check_day_scheduling(scheduling[day], scheduling[next_day[day]])
         if check_day_result.is_err:
             return check_day_result
     return Ok(None)
@@ -38,7 +38,10 @@ def check(scheduling: Week_Scheduling) -> Result[None, str]:
 def format_from_formatted_days(formatted_days: Dict[WeekDays, str]) -> str:
     accumulator = opening_line
     for day in WeekDays:
-        accumulator += f"{formatted_days[day]}\n"
+        if day in formatted_days:
+            accumulator += f"{formatted_days[day]}\n"
+        else:
+            accumulator+=f"{day.capitalize()}: {closed_phrase}\n"
 
     return accumulator
 
