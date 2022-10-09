@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from typing import Dict
-from lib import Scheduling, format
+from lib import Week_Scheduling, format_week
 
 app = FastAPI()
 
@@ -16,6 +16,6 @@ async def hello_parameters(name: str, number: int = 0) -> Dict[str, str]:
 
 
 @app.post("/format_scheduling")
-async def format_scheduling(scheduling: Scheduling) -> str:
+async def format_scheduling(scheduling: Week_Scheduling) -> str:
     print(f"scheduling: {scheduling}")
-    return f"{format(scheduling)}"
+    return f"{format_week(scheduling)}"
