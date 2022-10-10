@@ -4,7 +4,6 @@ from typing import List, Optional
 from option import Result, Ok, Err
 
 
-
 class ActionType(str, Enum):
     open = "open"
     close = "close"
@@ -63,12 +62,21 @@ def check_day_scheduling(current_day_scheduling: Day_Scheduling, next_day_schedu
     return check_sequence()
 
 
+def format_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Optional[Day_Scheduling] = None,
+               previous_day_scheduling: Optional[Day_Scheduling] = None) -> Result[str, str]:
+    check_result = check_day_scheduling(current_day_scheduling, next_day_scheduling, previous_day_scheduling)
+    if check_result.is_err:
+        return Err(check_result.unwrap_err())
 
-def format_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Day_Scheduling) -> str:
     if len(current_day_scheduling) == 0:
-        return closed_phrase
+        return Ok(closed_phrase)
 
     if len(current_day_scheduling) == 1 and current_day_scheduling[0].type == ActionType.close:
-        return closed_phrase
+        return Ok(closed_phrase)
+
+    scheduling = current_day_scheduling if current_day_scheduling[
+                                               0].type == ActionType.open else current_day_scheduling[1:]
+
+
 
     return ""
