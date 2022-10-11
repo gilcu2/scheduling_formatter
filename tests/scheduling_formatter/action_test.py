@@ -3,7 +3,7 @@ import pytest
 from scheduling_formatter.day_formatter import Action, ActionType
 
 
-def test_Action_good_input():
+def test_action_good_input():
     # Given action type and seconds
     action_type = ActionType.open
     seconds = 3600
@@ -15,7 +15,7 @@ def test_Action_good_input():
     assert action
 
 
-def test_Action_bad_input_seconds():
+def test_action_bad_input_seconds():
     # Given action type and seconds
     action_type = ActionType.open
     seconds = 100000
@@ -25,7 +25,7 @@ def test_Action_bad_input_seconds():
         action = Action(type=action_type, value=seconds)
 
 
-def test_Action_bad_input_action_type():
+def test_action_bad_input_action_type():
     # Given action type and seconds
     action_type = "run"
     seconds = 10000

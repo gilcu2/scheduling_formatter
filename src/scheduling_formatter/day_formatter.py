@@ -2,6 +2,7 @@ from enum import Enum
 from pydantic import BaseModel, Field
 from typing import List, Optional
 from option import Result, Ok, Err
+from scheduling_formatter.time_formatter import format_time
 
 
 class ActionType(str, Enum):
@@ -22,8 +23,8 @@ Day_Scheduling = List[Action]
 closed_phrase = "Closed"
 
 
-def check_day_scheduling(current_day_scheduling: Day_Scheduling, next_day_scheduling: Optional[Day_Scheduling] = None,
-                         previous_day_scheduling: Optional[Day_Scheduling] = None) -> Result[None, str]:
+def check_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Optional[Day_Scheduling] = None,
+              previous_day_scheduling: Optional[Day_Scheduling] = None) -> Result[None, str]:
     def check_begin() -> bool:
         return current_day_scheduling[0].type == ActionType.open or \
                (len(previous_day_scheduling) > 0 and previous_day_scheduling[-1].type == ActionType.open)
@@ -64,7 +65,10 @@ def check_day_scheduling(current_day_scheduling: Day_Scheduling, next_day_schedu
 
 def format_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Optional[Day_Scheduling] = None,
                previous_day_scheduling: Optional[Day_Scheduling] = None) -> Result[str, str]:
-    check_result = check_day_scheduling(current_day_scheduling, next_day_scheduling, previous_day_scheduling)
+    def format_pair(first: Action, second: Action) -> str:
+        return f"{format_time(first.value)} - {format_time(second.value)}"
+
+    check_result = check_day(current_day_scheduling, next_day_scheduling, previous_day_scheduling)
     if check_result.is_err:
         return Err(check_result.unwrap_err())
 
@@ -74,9 +78,19 @@ def format_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Opti
     if len(current_day_scheduling) == 1 and current_day_scheduling[0].type == ActionType.close:
         return Ok(closed_phrase)
 
-    scheduling = current_day_scheduling if current_day_scheduling[
-                                               0].type == ActionType.open else current_day_scheduling[1:]
+    current_day_clean_scheduling = current_day_scheduling \
+        if current_day_scheduling[0].type == ActionType.open else current_day_scheduling[1:]
 
+    if len(current_day_clean_scheduling) == 0:
+        return Ok(closed_phrase)
 
+    formatted = ""
+    for i in range(0, len(current_day_clean_scheduling)-1, 2):
+        formatted += format_pair(current_day_clean_scheduling[i], current_day_clean_scheduling[i + 1])
+        if len(current_day_scheduling) > i + 2:
+            formatted += ", "
 
-    return ""
+    if len(current_day_clean_scheduling) % 2 != 0:
+        formatted += format_pair(current_day_clean_scheduling[-1], next_day_scheduling[0])
+
+    return Ok(formatted)

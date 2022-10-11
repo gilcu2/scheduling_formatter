@@ -1,4 +1,4 @@
-from scheduling_formatter.day_formatter import check_day_scheduling, Action, \
+from scheduling_formatter.day_formatter import check_day, Action, \
     ActionType
 
 
@@ -10,7 +10,7 @@ def test_1_open_close():
     ]
 
     # When check
-    r = check_day_scheduling(scheduling)
+    r = check_day(scheduling)
 
     # Then it must be ok
     assert r.is_ok
@@ -26,7 +26,7 @@ def test_2_open_close():
     ]
 
     # When check
-    r = check_day_scheduling(scheduling)
+    r = check_day(scheduling)
 
     # Then it must be ok
     assert r.is_ok
@@ -39,7 +39,7 @@ def test_1_open():
     ]
 
     # When check
-    r = check_day_scheduling(scheduling)
+    r = check_day(scheduling)
 
     # Then it must be error
     assert r.is_err
@@ -56,7 +56,7 @@ def test_1_open_next_day_closed():
     ]
 
     # When check
-    r = check_day_scheduling(current_day_scheduling, next_day_scheduling)
+    r = check_day(current_day_scheduling, next_day_scheduling)
 
     # Then it must be ok
     assert r.is_ok
@@ -71,7 +71,7 @@ def test_2_open():
     ]
 
     # When check
-    r = check_day_scheduling(scheduling)
+    r = check_day(scheduling)
 
     # Then it must be error
     assert r.is_err
@@ -85,7 +85,7 @@ def test_1_open_close_wrong_times():
     ]
 
     # When check
-    r = check_day_scheduling(scheduling)
+    r = check_day(scheduling)
 
     # Then it must be error
     assert r.is_err
