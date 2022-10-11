@@ -55,7 +55,7 @@ pre-commit = "*"
 pymdown-extensions = "*"
 pytest = "*"
 pytest-github-actions-annotate-failures = "*"
-pytest-cov = "*"
+#pytest-cov = "*"
 python-kacl = "*"
 pyupgrade = "*"
 tryceratops = "*"
@@ -78,20 +78,20 @@ src_paths = ["src", "tests"]
 target-version = ["py37", "py38", "py39"]
 include = '\.pyi?$'
 
-[tool.pytest.ini_options]
-addopts = """\
-    --cov scheduling_formatter \
-    --cov tests \
-    --cov-report term-missing \
-    --no-cov-on-fail \
-"""
+#[tool.pytest.ini_options]
+#addopts = """\
+#    --cov scheduling_formatter \
+#    --cov tests \
+#    --cov-report term-missing \
+#    --no-cov-on-fail \
+#"""
 
-[tool.coverage.report]
-fail_under = 100
-exclude_lines = [
-    'if TYPE_CHECKING:',
-    'pragma: no cover'
-]
+#[tool.coverage.report]
+#fail_under = 100
+#exclude_lines = [
+#    'if TYPE_CHECKING:',
+#    'pragma: no cover'
+#]
 
 [tool.mypy]
 disallow_any_unimported = true
