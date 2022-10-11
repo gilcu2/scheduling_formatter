@@ -1,5 +1,5 @@
 from scheduling_formatter.week_formatter import \
-    format_from_scheduling, format_from_formatted_days, WeekDays
+    format_week, format_from_formatted_days, WeekDays
 from scheduling_formatter.day_formatter import Action, ActionType
 from utils.str_extensions import clean
 
@@ -28,7 +28,7 @@ def test_format_from_formatted_days():
     assert formatted == expected
 
 
-def test_format():
+def test_format_week():
     # Given a scheduling
     scheduling = {
         WeekDays.monday: [
@@ -41,7 +41,7 @@ def test_format():
     expected = format_from_formatted_days({WeekDays.monday: "Monday: 9 AM - 8 PM"})
 
     # When format it
-    r = format_from_scheduling(scheduling).unwrap()
+    r = format_week(scheduling).unwrap()
 
     # Then r is the expected
     assert r == expected

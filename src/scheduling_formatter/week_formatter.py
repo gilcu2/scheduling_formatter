@@ -15,21 +15,22 @@ class WeekDays(str, Enum):
 
 
 day_list = [day for day in WeekDays]
+
 next_day = {day_list[i]: day_list[i + 1] for i in range(len(day_list) - 1)}
-next_day[day_list[len(day_list) - 1]] = day_list[0]
+next_day[day_list[-1]] = day_list[0]
+
+previous_day = {day_list[i]: day_list[i - 1] for i in range(1, len(day_list))}
+previous_day[day_list[0]] = day_list[-1]
 
 Week_Scheduling = Dict[WeekDays, Day_Scheduling]
 
 opening_line = "A restaurant is open:\n"
 
 
-def fix(scheduling: Week_Scheduling) -> Week_Scheduling:
-    return scheduling
-
-
-def check(scheduling: Week_Scheduling) -> Result[None, str]:
+def check_week(scheduling: Week_Scheduling) -> Result[None, str]:
     for day in WeekDays:
-        check_day_result = check_day(scheduling[day], scheduling[next_day[day]])
+        check_day_result = check_day(scheduling.get(day), scheduling.get(next_day[day]),
+                                     scheduling.get(previous_day[day]))
         if check_day_result.is_err:
             return check_day_result
     return Ok(None)
@@ -41,14 +42,13 @@ def format_from_formatted_days(formatted_days: Dict[WeekDays, str]) -> str:
         if day in formatted_days:
             accumulator += f"{formatted_days[day]}\n"
         else:
-            accumulator+=f"{day.capitalize()}: {closed_phrase}\n"
+            accumulator += f"{day.capitalize()}: {closed_phrase}\n"
 
     return accumulator
 
 
-def format_from_scheduling(scheduling: Week_Scheduling) -> Result[str, str]:
-    fixed_scheduling = fix(scheduling)
-    check_result = check(fixed_scheduling)
+def format_week(scheduling: Week_Scheduling) -> Result[str, str]:
+    check_result = check_week(scheduling)
 
     if check_result.is_err:
         Err(check_result.unwrap_err())
