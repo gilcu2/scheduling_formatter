@@ -54,8 +54,8 @@ def format_week(scheduling: Week_Scheduling) -> Result[str, str]:
         Err(check_result.unwrap_err())
 
     formatted_days = {
-        day: format_day(day_scheduling, scheduling[next_day[day]])
-        for (day, day_scheduling) in scheduling.items()
+        day: format_day(scheduling.get(day), scheduling.get(next_day[day]), scheduling.get(previous_day[day]))
+        for day in WeekDays
     }
 
     return Ok(format_from_formatted_days(formatted_days))

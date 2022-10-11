@@ -45,7 +45,7 @@ def check_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Optio
             previous_type = action.type
         return Ok(None)
 
-    if len(current_day_scheduling) == 0:
+    if current_day_scheduling is None or len(current_day_scheduling) == 0:
         return Ok(None)
 
     if next_day_scheduling is None:
@@ -72,7 +72,7 @@ def format_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Opti
     if check_result.is_err:
         return Err(check_result.unwrap_err())
 
-    if len(current_day_scheduling) == 0:
+    if current_day_scheduling is None or len(current_day_scheduling) == 0:
         return Ok(closed_phrase)
 
     if len(current_day_scheduling) == 1 and current_day_scheduling[0].type == ActionType.close:
