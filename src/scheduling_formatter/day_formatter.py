@@ -1,5 +1,5 @@
 from enum import Enum
-from pydantic import BaseModel, Field
+from dataclasses import dataclass
 from typing import List, Optional
 from option import Result, Ok, Err
 from scheduling_formatter.time_formatter import format_time
@@ -10,12 +10,13 @@ class ActionType(str, Enum):
     close = "close"
 
 
-class Action(BaseModel):
+@dataclass
+class Action:
     type: ActionType
-    value: int = Field(ge=0, le=86399, description="The value are the seconds from midnight. Valid range [0,86399]")
+    value: int
 
-    def __init__(self, type: ActionType, value: int):
-        super().__init__(type=type, value=value)
+    def __post_init__(self):
+        assert self.value < 24 * 3600
 
 
 Day_Scheduling = List[Action]
@@ -85,7 +86,7 @@ def format_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Opti
         return Ok(closed_phrase)
 
     formatted = ""
-    for i in range(0, len(current_day_clean_scheduling)-1, 2):
+    for i in range(0, len(current_day_clean_scheduling) - 1, 2):
         formatted += format_pair(current_day_clean_scheduling[i], current_day_clean_scheduling[i + 1])
         if len(current_day_scheduling) > i + 2:
             formatted += ", "

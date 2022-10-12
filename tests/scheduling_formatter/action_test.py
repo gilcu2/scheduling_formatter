@@ -23,13 +23,3 @@ def test_action_bad_input_seconds():
     # When create must generate exception
     with pytest.raises(Exception) as e_info:
         action = Action(type=action_type, value=seconds)
-
-
-def test_action_bad_input_action_type():
-    # Given action type and seconds
-    action_type = "run"
-    seconds = 10000
-
-    # When create must generate exception
-    with pytest.raises(Exception) as e_info:
-        action = Action(type=action_type, value=seconds)

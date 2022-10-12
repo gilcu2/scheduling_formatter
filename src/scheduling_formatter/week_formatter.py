@@ -22,7 +22,7 @@ next_day[day_list[-1]] = day_list[0]
 previous_day = {day_list[i]: day_list[i - 1] for i in range(1, len(day_list))}
 previous_day[day_list[0]] = day_list[-1]
 
-Week_Scheduling = Dict[WeekDays, Day_Scheduling]
+WeekScheduling = Dict[WeekDays, Day_Scheduling]
 
 opening_line = "A restaurant is open:\n"
 
@@ -38,7 +38,7 @@ def format_from_formatted_days(formatted_days: Dict[WeekDays, str]) -> str:
     return accumulator
 
 
-def format_week(scheduling: Week_Scheduling) -> Result[str, str]:
+def format_week(scheduling: WeekScheduling) -> Result[str, str]:
     formatted_days: Dict[WeekDays, str] = {}
     for day in WeekDays:
         possible_formatted = format_day(scheduling.get(day), scheduling.get(next_day[day]),
