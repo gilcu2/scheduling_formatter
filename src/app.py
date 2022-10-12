@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.responses import PlainTextResponse
 from typing import Dict, Any, Optional
 from scheduling_formatter.week_formatter import format_week, WeekScheduling
 from scheduling_formatter.day_formatter import Day_Scheduling
@@ -32,12 +33,12 @@ class WeekSchedulingPydantic(BaseModel):
     sunday: Optional[Day_Scheduling] = None
 
     def to_WeekScheduling(self) -> WeekScheduling:
-        return {}
+        return self.dict()
 
 
-@app.post("/format_scheduling")
+@app.post("/format_scheduling", response_class=PlainTextResponse)
 async def format_scheduling(scheduling_pydactic: WeekSchedulingPydantic) -> str:
-    return f"{format_week(scheduling_pydactic.to_WeekScheduling()).unwrap()}"
+    return format_week(scheduling_pydactic.to_WeekScheduling()).unwrap()
 
 
 @app.get("/{full_path:path}")
@@ -51,4 +52,4 @@ async def any_other_post(request: Request, full_path: str) -> Dict[str, str]:
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host='127.0.0.1', port=8000, reload=True)
+    uvicorn.run("app:app", host='127.0.0.1', port=8000, reload=True)

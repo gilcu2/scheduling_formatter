@@ -43,7 +43,7 @@ def test_any_other_post():
     assert answer["full_path"] == path
 
 
-def test_format_scheduling_from_json():
+def test_format_scheduling():
     # Given the base path
     path = "/format_scheduling"
 
@@ -62,13 +62,10 @@ def test_format_scheduling_from_json():
     }
 
     # And the expected response
-    expected = """
-    A restaurant is open:
-    Monday: 9 AM - 8 PM
-    """.strip()
+    expected = format_from_formatted_days({WeekDays.monday: "9 AM - 8 PM"}).strip()
 
     # When format the scheduling
-    response = client.post(path, data=scheduling)
+    response = client.post(path, json=scheduling)
 
     # Then response must be the expected
     print(f"response: {response.text}")
@@ -76,24 +73,3 @@ def test_format_scheduling_from_json():
     assert response.text.strip() == expected
 
 
-def test_format_scheduling():
-    # Given a scheduling
-    scheduling = {
-        WeekDays.monday: [
-            Action(type=ActionType.open, value=9 * 3600),
-            Action(type=ActionType.close, value=20 * 3600),
-        ],
-    }
-
-    # And the format_scheduling  path
-    path = "/format_scheduling"
-
-    # And the expected result
-    expected = format_from_formatted_days({WeekDays.monday: "9 AM - 8 PM"})
-
-    # When call the api
-    response = client.post(path, data=scheduling)
-
-    # Then response must be the expected
-    assert response.status_code == 200
-    assert response.json() == expected
