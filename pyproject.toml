@@ -8,9 +8,6 @@ authors = [
 license = "MIT"
 readme = "README.md"
 
-documentation = "https://gilcu2.github.io/scheduling_formatter"
-homepage = "https://gilcu2.github.io/scheduling_formatter"
-repository = "https://github.com/gilcu2/scheduling_formatter"
 
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -18,9 +15,9 @@ classifiers = [
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Typing :: Typed",
 ]
@@ -30,7 +27,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.7.1, <4.0"
+python = ">=3.8.1, <4.0"
 fastapi = "^0.85.0"
 uvicorn = "^0.18.3"
 requests = "^2.28.1"

@@ -43,19 +43,19 @@ class WeekSchedulingPydantic(BaseModel):
 
 @app.post("/format_scheduling", response_class=PlainTextResponse)
 def format_scheduling(scheduling_pydantic: WeekSchedulingPydantic) -> str:
-    logger.info(f"/format_scheduling {scheduling_pydantic}")
+    logger.info("/format_scheduling {input}", extra={"input": scheduling_pydantic})
     return format_week(scheduling_pydantic.to_week_scheduling()).unwrap()
 
 
 @app.get("/{full_path:path}")
 def any_get(request: Request, full_path: str) -> Dict[str, str]:
-    logger.info(f"Get {request}")
+    logger.info("Get {input}", extra={"input": request})
     return default_response(request, full_path)
 
 
 @app.post("/{full_path:path}")
 def any_other_post(request: Request, full_path: str) -> Dict[str, str]:
-    logger.info(f"Post {request}")
+    logger.info("Post {input}", extra={"input": request})
     return default_response(request, full_path)
 
 

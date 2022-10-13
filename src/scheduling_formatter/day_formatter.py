@@ -31,12 +31,12 @@ def _check_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Day_
                previous_day_scheduling: Day_Scheduling) -> Result[None, str]:
     def check_begin() -> bool:
         return current_day_scheduling[0].type == ActionType.open or (
-                len(previous_day_scheduling) > 0 and previous_day_scheduling[-1].type == ActionType.open
+            len(previous_day_scheduling) > 0 and previous_day_scheduling[-1].type == ActionType.open
         )
 
     def check_end() -> bool:
         return current_day_scheduling[-1].type == ActionType.close or (
-                len(next_day_scheduling) > 0 and next_day_scheduling[0].type == ActionType.close
+            len(next_day_scheduling) > 0 and next_day_scheduling[0].type == ActionType.close
         )
 
     if len(current_day_scheduling) == 0:
@@ -70,7 +70,7 @@ def check_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Optio
 
     r = _check_day(current_day_scheduling, next_day_scheduling, previous_day_scheduling)
     if r.is_err:
-        logger.warn(r.unwrap_err())
+        logger.warning(r.unwrap_err())
     return r
 
 
