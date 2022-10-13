@@ -25,9 +25,9 @@ poetry shell
 ### Checks
 
 ```sh
-bin/lint.sh
-bin/type_check.sk
-bin/test.sh
+tools/lint.sh
+tools/type_check.sk
+tools/test.sh
 ```
 
 ### Run
@@ -35,13 +35,13 @@ bin/test.sh
 1. In one terminal:
 
 ```sh
-bin/run_server.sh
+tools/run_server.sh
 ```
 
 1. In other terminal:
 
 ```sh
-bin/run_client.sh
+tools/run_client.sh
 ```
 
 ## Data representation
