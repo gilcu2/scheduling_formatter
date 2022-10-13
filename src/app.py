@@ -6,6 +6,7 @@ from scheduling_formatter.day_formatter import Day_Scheduling
 import uvicorn
 from pydantic import BaseModel
 import logging
+import logging.config
 
 logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
 
