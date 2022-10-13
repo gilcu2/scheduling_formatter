@@ -5,6 +5,11 @@ from scheduling_formatter.week_formatter import format_week, WeekScheduling
 from scheduling_formatter.day_formatter import Day_Scheduling
 import uvicorn
 from pydantic import BaseModel
+import logging
+
+logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -37,17 +42,20 @@ class WeekSchedulingPydantic(BaseModel):
 
 
 @app.post("/format_scheduling", response_class=PlainTextResponse)
-async def format_scheduling(scheduling_pydactic: WeekSchedulingPydantic) -> str:
-    return format_week(scheduling_pydactic.to_week_scheduling()).unwrap()
+def format_scheduling(scheduling_pydantic: WeekSchedulingPydantic) -> str:
+    logger.info(f"/format_scheduling {scheduling_pydantic}")
+    return format_week(scheduling_pydantic.to_week_scheduling()).unwrap()
 
 
 @app.get("/{full_path:path}")
-async def any_get(request: Request, full_path: str) -> Dict[str, str]:
+def any_get(request: Request, full_path: str) -> Dict[str, str]:
+    logger.info(f"Get {request}")
     return default_response(request, full_path)
 
 
 @app.post("/{full_path:path}")
-async def any_other_post(request: Request, full_path: str) -> Dict[str, str]:
+def any_other_post(request: Request, full_path: str) -> Dict[str, str]:
+    logger.info(f"Post {request}")
     return default_response(request, full_path)
 
 

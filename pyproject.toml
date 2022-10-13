@@ -54,7 +54,6 @@ pre-commit = "*"
 pymdown-extensions = "*"
 pytest = "*"
 pytest-github-actions-annotate-failures = "*"
-#pytest-cov = "*"
 python-kacl = "*"
 pyupgrade = "*"
 tryceratops = "*"
@@ -67,7 +66,7 @@ pytest-asyncio = "^0.19.0"
 pyright = "^1.1.275"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.2.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
