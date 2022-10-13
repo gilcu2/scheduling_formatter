@@ -1,23 +1,5 @@
 # scheduling_formatter
 
-[![PyPI](https://img.shields.io/pypi/v/scheduling_formatter?style=flat-square)](https://pypi.python.org/pypi/scheduling_formatter/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/scheduling_formatter?style=flat-square)](https://pypi.python.org/pypi/scheduling_formatter/)
-[![PyPI - License](https://img.shields.io/pypi/l/scheduling_formatter?style=flat-square)](https://pypi.python.org/pypi/scheduling_formatter/)
-[![Coookiecutter - Wolt](https://img.shields.io/badge/cookiecutter-Wolt-00c2e8?style=flat-square&logo=cookiecutter&logoColor=D4AA00&link=https://github.com/woltapp/wolt-python-package-cookiecutter)](https://github.com/woltapp/wolt-python-package-cookiecutter)
-
-
----
-
-**Documentation**: [https://gilcu2.github.io/scheduling_formatter](https://gilcu2.github.io/scheduling_formatter)
-
-**Source Code**: [https://github.com/gilcu2/scheduling_formatter](https://github.com/gilcu2/scheduling_formatter)
-
-**PyPI**: [https://pypi.org/project/scheduling_formatter/](https://pypi.org/project/scheduling_formatter/)
-
----
-
-Format open hours descriptions
-
 ## Installation
 
 ```sh
@@ -48,45 +30,21 @@ poetry shell
 pytest
 ```
 
-### Documentation
+## Data representation
 
-The documentation is automatically generated from the content of the [docs directory](./docs) and from the docstrings
- of the public signatures of the source code. The documentation is updated and published as a [Github project page
- ](https://pages.github.com/) automatically as part each release.
+The input data to the app can be done in any of the serialization formats beside JSON 
+like YAM, Pickle, Parquet, etc. Each of these formats have advantages and disadvantages
+so selecting the one to use depends on the characteristics of the problem.
+For example:
+ - CSV is more compact but only does not allow complex structured data and is less standardized 
+ - YAML is more readable by humans, less bureaucratic but less compact than JSON
+ - Parquet with compression is high compact and query efficient but is not human-readable
+ - Avro supports versioning, so is interesting to use if the data scheme change in the life 
+of the app.
 
-### Releasing
-
-Trigger the [Draft release workflow](https://github.com/gilcu2/scheduling_formatter/actions/workflows/draft_release.yml)
-(press _Run workflow_). This will update the changelog & version and create a GitHub release which is in _Draft_ state.
-
-Find the draft release from the
-[GitHub releases](https://github.com/gilcu2/scheduling_formatter/releases) and publish it. When
- a release is published, it'll trigger [release](https://github.com/gilcu2/scheduling_formatter/blob/master/.github/workflows/release.yml) workflow which creates PyPI
- release and deploys updated documentation.
-
-### Pre-commit
-
-Pre-commit hooks run all the auto-formatters (e.g. `black`, `isort`), linters (e.g. `mypy`, `flake8`), and other quality
- checks to make sure the changeset is in good shape before a commit/push happens.
-
-You can install the hooks with (runs for each commit):
-
-```sh
-pre-commit install
-```
-
-Or if you want them to run only for each push:
-
-```sh
-pre-commit install -t pre-push
-```
-
-Or if you want e.g. want to run all checks manually for all files:
-
-```sh
-pre-commit run --all-files
-```
-
----
-
-This project was generated using the [wolt-python-package-cookiecutter](https://github.com/woltapp/wolt-python-package-cookiecutter) template.
+In our case, efficient is an important point but also is important the human readability 
+and library support, so I would keep JSON as the best data format in the problem 
+given the knowledge available. For example, if the application is going to serve 
+thousands of restaurant I would provide an endpoint that support and array os restaurant schedules
+using compressed AVRO because avoid the call for each restaurant, can be compressed 
+and the schema can evolve.

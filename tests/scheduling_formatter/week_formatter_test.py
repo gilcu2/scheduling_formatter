@@ -9,8 +9,7 @@ def test_format_from_formatted_days():
     formatted_days = {WeekDays.monday: "9 AM - 8 PM"}
 
     # And the expected formatted
-    expected = """
-            A restaurant is open:
+    expected = clean("""
             Monday: 9 AM - 8 PM
             Tuesday: Closed
             Wednesday: Closed
@@ -18,8 +17,7 @@ def test_format_from_formatted_days():
             Friday: Closed
             Saturday: Closed
             Sunday: Closed
-    """
-    expected = clean(expected)
+    """)
 
     # When format
     formatted = format_from_formatted_days(formatted_days).strip()

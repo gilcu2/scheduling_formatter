@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Dict
-from scheduling_formatter.day_formatter import Day_Scheduling, format_day, check_day, closed_phrase
-from option import Result, Ok, Err
+from scheduling_formatter.day_formatter import Day_Scheduling, format_day, closed_phrase
+from option import Result, Ok
 
 
 class WeekDays(str, Enum):
@@ -14,7 +14,7 @@ class WeekDays(str, Enum):
     sunday = "sunday"
 
 
-day_list = [day for day in WeekDays]
+day_list = list(WeekDays)
 
 next_day = {day_list[i]: day_list[i + 1] for i in range(len(day_list) - 1)}
 next_day[day_list[-1]] = day_list[0]
@@ -24,11 +24,9 @@ previous_day[day_list[0]] = day_list[-1]
 
 WeekScheduling = Dict[WeekDays, Day_Scheduling]
 
-opening_line = "A restaurant is open:\n"
-
 
 def format_from_formatted_days(formatted_days: Dict[WeekDays, str]) -> str:
-    accumulator = opening_line
+    accumulator = ""
     for day in WeekDays:
         if day in formatted_days:
             accumulator += f"{day.capitalize()}: {formatted_days[day]}\n"

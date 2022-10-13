@@ -1,17 +1,17 @@
 from utils.str_extensions import clean
 
 
-def test_clean():
+def test_clean() -> None:
     # Given str extra formatting chars
     s = """
-            A restaurant is open:
             Monday: 9 AM - 8 PM
+            Tuesday: 10 AM - 1 PM
     """
 
     # And the expected cleaned str
     cleaned = """
-A restaurant is open:
 Monday: 9 AM - 8 PM
+Tuesday: 10 AM - 1 PM
 """.strip()
 
     # When cleaned

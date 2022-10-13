@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import PlainTextResponse
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, cast
 from scheduling_formatter.week_formatter import format_week, WeekScheduling
 from scheduling_formatter.day_formatter import Day_Scheduling
 import uvicorn
@@ -32,13 +32,13 @@ class WeekSchedulingPydantic(BaseModel):
     saturday: Optional[Day_Scheduling] = None
     sunday: Optional[Day_Scheduling] = None
 
-    def to_WeekScheduling(self) -> WeekScheduling:
-        return self.dict()
+    def to_week_scheduling(self) -> WeekScheduling:
+        return cast(WeekScheduling, self.dict())
 
 
 @app.post("/format_scheduling", response_class=PlainTextResponse)
 async def format_scheduling(scheduling_pydactic: WeekSchedulingPydantic) -> str:
-    return format_week(scheduling_pydactic.to_WeekScheduling()).unwrap()
+    return format_week(scheduling_pydactic.to_week_scheduling()).unwrap()
 
 
 @app.get("/{full_path:path}")
