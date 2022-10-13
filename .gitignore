@@ -54,7 +54,6 @@ target/
 .python-version
 
 # Environments
-.env
 .venv
 env/
 venv/
@@ -77,3 +76,5 @@ venv.bak/
 
 # IDEs
 .idea/
+
+tmp/

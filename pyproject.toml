@@ -8,9 +8,6 @@ authors = [
 license = "MIT"
 readme = "README.md"
 
-documentation = "https://gilcu2.github.io/scheduling_formatter"
-homepage = "https://gilcu2.github.io/scheduling_formatter"
-repository = "https://github.com/gilcu2/scheduling_formatter"
 
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -18,9 +15,9 @@ classifiers = [
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Typing :: Typed",
 ]
@@ -30,7 +27,11 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.7.1, <4.0"
+python = ">=3.8.1, <4.0"
+fastapi = "^0.85.0"
+uvicorn = "^0.18.3"
+requests = "^2.28.1"
+option = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 autoflake = "*"
@@ -45,19 +46,24 @@ flake8-logging-format = "*"
 isort = "*"
 mkdocstrings = "*"
 mkdocs-material = "*"
-mypy = "*"
 pep8-naming = "*"
 pre-commit = "*"
 pymdown-extensions = "*"
 pytest = "*"
 pytest-github-actions-annotate-failures = "*"
-pytest-cov = "*"
 python-kacl = "*"
 pyupgrade = "*"
 tryceratops = "*"
+pytest-sugar = "*"
+pytest-xdist = "*"
+pytest-timeout = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest-asyncio = "^0.19.0"
+pyright = "^1.1.275"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.2.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
@@ -68,28 +74,3 @@ src_paths = ["src", "tests"]
 target-version = ["py37", "py38", "py39"]
 include = '\.pyi?$'
 
-[tool.pytest.ini_options]
-addopts = """\
-    --cov scheduling_formatter \
-    --cov tests \
-    --cov-report term-missing \
-    --no-cov-on-fail \
-"""
-
-[tool.coverage.report]
-fail_under = 100
-exclude_lines = [
-    'if TYPE_CHECKING:',
-    'pragma: no cover'
-]
-
-[tool.mypy]
-disallow_any_unimported = true
-disallow_untyped_defs = true
-no_implicit_optional = true
-strict_equality = true
-warn_unused_ignores = true
-warn_redundant_casts = true
-warn_return_any = true
-check_untyped_defs = true
-show_error_codes = true
