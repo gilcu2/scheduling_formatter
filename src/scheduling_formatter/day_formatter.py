@@ -36,7 +36,7 @@ def _check_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Day_
             len(next_day_scheduling) > 0 and next_day_scheduling[0].type == ActionType.close
         )
 
-    if current_day_scheduling is None or len(current_day_scheduling) == 0:
+    if len(current_day_scheduling) == 0:
         return Ok(None)
 
     if not check_begin():
@@ -68,16 +68,20 @@ def check_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Optio
     return _check_day(current_day_scheduling, next_day_scheduling, previous_day_scheduling)
 
 
-def format_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Optional[Day_Scheduling] = None,
+def format_day(current_day_scheduling: Optional[Day_Scheduling], next_day_scheduling: Optional[Day_Scheduling] = None,
                previous_day_scheduling: Optional[Day_Scheduling] = None) -> Result[str, str]:
     def format_pair(first: Action, second: Action) -> str:
         return f"{format_time(first.value)} - {format_time(second.value)}"
+
+    current_day_scheduling = current_day_scheduling if current_day_scheduling is not None else []
+    next_day_scheduling = next_day_scheduling if next_day_scheduling is not None else []
+    next_day_scheduling = next_day_scheduling if next_day_scheduling is not None else []
 
     check_result = check_day(current_day_scheduling, next_day_scheduling, previous_day_scheduling)
     if check_result.is_err:
         return Err(check_result.unwrap_err())
 
-    if current_day_scheduling is None or len(current_day_scheduling) == 0:
+    if len(current_day_scheduling) == 0:
         return Ok(closed_phrase)
 
     if len(current_day_scheduling) == 1 and current_day_scheduling[0].type == ActionType.close:
