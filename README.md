@@ -16,17 +16,18 @@
 poetry install
 ```
 
-1. Activate the virtual environment
+1. Activate the virtual environment and set env vars
 
 ```sh
 poetry shell
+source .env
 ```
 
 ### Checks
 
 ```sh
 tools/lint.sh
-tools/type_check.sk
+tools/type_check.sh
 tools/test.sh
 ```
 
