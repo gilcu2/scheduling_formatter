@@ -6,11 +6,6 @@ from scheduling_formatter.day_formatter import Day_Scheduling
 import uvicorn
 from pydantic import BaseModel
 import logging
-import logging.config
-
-logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
-
-logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -44,19 +39,19 @@ class WeekSchedulingPydantic(BaseModel):
 
 @app.post("/format_scheduling", response_class=PlainTextResponse)
 def format_scheduling(scheduling_pydantic: WeekSchedulingPydantic) -> str:
-    logger.info("/format_scheduling {input}", extra={"input": scheduling_pydantic})
+    logging.info("/format_scheduling {input}", extra={"input": scheduling_pydantic})
     return format_week(scheduling_pydantic.to_week_scheduling()).unwrap()
 
 
 @app.get("/{full_path:path}")
 def any_get(request: Request, full_path: str) -> Dict[str, str]:
-    logger.info("Get {input}", extra={"input": request})
+    logging.info("Get {input}", extra={"input": request})
     return default_response(request, full_path)
 
 
 @app.post("/{full_path:path}")
 def any_other_post(request: Request, full_path: str) -> Dict[str, str]:
-    logger.info("Post {input}", extra={"input": request})
+    logging.info("Post {input}", extra={"input": request})
     return default_response(request, full_path)
 
 

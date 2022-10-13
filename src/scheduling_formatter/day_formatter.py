@@ -5,8 +5,6 @@ from option import Result, Ok, Err
 from scheduling_formatter.time_formatter import format_time
 import logging
 
-logger = logging.getLogger(__name__)
-
 
 class ActionType(str, Enum):
     open = "open"
@@ -70,7 +68,7 @@ def check_day(current_day_scheduling: Day_Scheduling, next_day_scheduling: Optio
 
     r = _check_day(current_day_scheduling, next_day_scheduling, previous_day_scheduling)
     if r.is_err:
-        logger.warning(r.unwrap_err())
+        logging.warning(r.unwrap_err())
     return r
 
 
