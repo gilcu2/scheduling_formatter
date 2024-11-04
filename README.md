@@ -1,4 +1,4 @@
-# scheduling_formatter
+# Reservation scheduling formatter
 
 ## Development
 
