@@ -27,13 +27,15 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8.1, <4.0"
+python = ">=3.9.1, <4.0"
 fastapi = "^0.85.0"
 uvicorn = "^0.18.3"
 requests = "^2.28.1"
 option = "^2.1.0"
 
-[tool.poetry.dev-dependencies]
+
+[tool.poetry.group.dev.dependencies]
+setuptools = "^75.8.0"
 autoflake = "*"
 black = "*"
 flake8 = "*"
@@ -57,8 +59,6 @@ tryceratops = "*"
 pytest-sugar = "*"
 pytest-xdist = "*"
 pytest-timeout = "*"
-
-[tool.poetry.group.dev.dependencies]
 pytest-asyncio = "^0.19.0"
 pyright = "^1.1.275"
 

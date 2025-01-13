@@ -12,16 +12,16 @@
 1. Get the source code
 2. Install dependencies
 
-```sh
-poetry install
-```
+  ```sh
+  poetry install
+  ```
 
 1. Activate the virtual environment and set env vars
 
-```sh
-poetry shell
-source .env
-```
+  ```sh
+  poetry shell
+  source .env
+  ```
 
 ### Checks
 

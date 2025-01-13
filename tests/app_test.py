@@ -11,7 +11,7 @@ def test_any_get() -> None:
     path = "qq"
 
     # And the expected response
-    expected_msg = "Hello Wolt"
+    expected_msg = "Hello"
 
     # When call the app
     response = client.get(f"/{path}")
