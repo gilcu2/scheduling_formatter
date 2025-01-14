@@ -1,17 +1,17 @@
 from fastapi.testclient import TestClient
-from app import app
-from scheduling_formatter.week_formatter import WeekDays, format_from_formatted_days
+from app import app, WeekSchedulingPydantic
+from scheduling_formatter.day_formatter import Day_Scheduling, Action
+from scheduling_formatter.week_formatter import WeekDays, format_from_formatted_days, WeekScheduling
 from utils.str_extensions import clean
 
 client = TestClient(app)
-
 
 def test_any_get() -> None:
     # Given the hello path
     path = "qq"
 
     # And the expected response
-    expected_msg = "Hello"
+    expected_msg = "Undefined request"
 
     # When call the app
     response = client.get(f"/{path}")
@@ -29,7 +29,7 @@ def test_any_other_post() -> None:
     path = "qq"
 
     # And the expected response
-    expected_msg = "Hello Wolt"
+    expected_msg = "Undefined request"
 
     # When call the app
     response = client.post(f"/{path}")

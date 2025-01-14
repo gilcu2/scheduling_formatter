@@ -1,7 +1,8 @@
 from enum import Enum
-from typing import Dict
 from scheduling_formatter.day_formatter import Day_Scheduling, format_day, closed_phrase
 from option import Result, Ok
+from pydantic import BaseModel
+from typing import Dict, Any, Optional, cast
 
 
 class WeekDays(str, Enum):
@@ -46,3 +47,16 @@ def format_week(scheduling: WeekScheduling) -> Result[str, str]:
         formatted_days[day] = possible_formatted.unwrap()
 
     return Ok(format_from_formatted_days(formatted_days))
+
+
+class WeekSchedulingPydantic(BaseModel):
+    monday: Optional[Day_Scheduling] = None
+    tuesday: Optional[Day_Scheduling] = None
+    wednesday: Optional[Day_Scheduling] = None
+    thursday: Optional[Day_Scheduling] = None
+    friday: Optional[Day_Scheduling] = None
+    saturday: Optional[Day_Scheduling] = None
+    sunday: Optional[Day_Scheduling] = None
+
+    def to_week_scheduling(self) -> WeekScheduling:
+        return cast(WeekScheduling, self.model_dump())
