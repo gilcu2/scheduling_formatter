@@ -10,12 +10,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.8", "3.9", "3.10" ]
+        python-version: [ "3.9", "3.13" ]
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/python-poetry-env
         with:
           python-version: ${{ matrix.python-version }}
-      - run: poetry run tools/lint.sh
-      - run: poetry run tools/type_check.sh
-      - run: poetry run tools/test.sh
+      - run: poetry run scripts/lint.sh
+      - run: poetry run scripts/type_check.sh
+      - run: poetry run scripts/test.sh

@@ -1,10 +1,8 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import PlainTextResponse
-from typing import Dict, Any, Optional, cast
-from scheduling_formatter.week_formatter import format_week, WeekScheduling
-from scheduling_formatter.day_formatter import Day_Scheduling
+from typing import Dict, Any
+from scheduling_formatter.week_formatter import format_week, WeekSchedulingPydantic
 import uvicorn
-from pydantic import BaseModel
 import logging
 
 app = FastAPI()
@@ -12,29 +10,16 @@ app = FastAPI()
 
 def default_response(request: Request, full_path: str) -> Dict[str, Any]:
     return {
-        "message": "Hello Wolt",
-        "full_path": full_path,
-        "base_url": request.base_url,
-        "client": request.client,
-        "headers": request.headers,
-        "method": request.method,
-        "path_params": request.path_params,
-        "query_params": request.query_params,
-        "url": request.url,
+        "message": "Undefined request",
+        "full_path": str(full_path),
+        "base_url": str(request.base_url),
+        "client": str(request.client),
+        "headers": str(request.headers),
+        "method": str(request.method),
+        "path_params": str(request.path_params),
+        "query_params": str(request.query_params),
+        "url": str(request.url),
     }
-
-
-class WeekSchedulingPydantic(BaseModel):
-    monday: Optional[Day_Scheduling] = None
-    tuesday: Optional[Day_Scheduling] = None
-    wednesday: Optional[Day_Scheduling] = None
-    thursday: Optional[Day_Scheduling] = None
-    friday: Optional[Day_Scheduling] = None
-    saturday: Optional[Day_Scheduling] = None
-    sunday: Optional[Day_Scheduling] = None
-
-    def to_week_scheduling(self) -> WeekScheduling:
-        return cast(WeekScheduling, self.dict())
 
 
 @app.post("/format_scheduling", response_class=PlainTextResponse)

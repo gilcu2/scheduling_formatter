@@ -11,7 +11,7 @@ def test_any_get() -> None:
     path = "qq"
 
     # And the expected response
-    expected_msg = "Hello Wolt"
+    expected_msg = "Undefined request"
 
     # When call the app
     response = client.get(f"/{path}")
@@ -29,7 +29,7 @@ def test_any_other_post() -> None:
     path = "qq"
 
     # And the expected response
-    expected_msg = "Hello Wolt"
+    expected_msg = "Undefined request"
 
     # When call the app
     response = client.post(f"/{path}")
@@ -142,18 +142,18 @@ def test_format_scheduling_close_next_day() -> None:
     path = "/format_scheduling"
 
     # And the body
-    scheduling = '''{
+    scheduling = {
         "friday": [
-            { "type":"open", "value":64800}
+            {"type": "open", "value": 64800}
         ],
         "saturday": [
-            { "type":"close", "value":3600},
-            { "type" : "open","value" : 32400},
-            {"type" : "close","value" : 39600},
-            {"type" : "open","value" : 57600},
-            {"type" : "close","value" : 82800}
+            {"type": "close", "value": 3600},
+            {"type": "open", "value": 32400},
+            {"type": "close", "value": 39600},
+            {"type": "open", "value": 57600},
+            {"type": "close", "value": 82800}
         ]
-    }'''
+    }
 
     # And the expected response
     expected = clean("""
@@ -167,7 +167,7 @@ def test_format_scheduling_close_next_day() -> None:
     """)
 
     # When format the scheduling
-    response = client.post(path, data=scheduling)
+    response = client.post(path, json=scheduling)
 
     # Then response must be the expected
     assert response.status_code == 200
@@ -179,31 +179,30 @@ def test_format_scheduling_full_example() -> None:
     path = "/format_scheduling"
 
     # And the body
-    scheduling = '''{
-        "monday" : [],
-        "tuesday" : [
-            {"type" : "open", "value" : 36000},
-            {"type" : "close", "value" : 64800}
+    scheduling = {
+        "monday": [],
+        "tuesday": [
+            {"type": "open", "value": 36000},
+            {"type": "close", "value": 64800}
         ],
-        "wednesday" : [],
-        "thursday" : [
-            {"type" : "open", "value" : 37800},
-            {"type" : "close", "value" : 64800}
+        "wednesday": [],
+        "thursday": [
+            {"type": "open", "value": 37800},
+            {"type": "close", "value": 64800}
         ],
-        "friday" : [
-            {"type" : "open", "value" : 36000}
+        "friday": [
+            {"type": "open", "value": 36000}
         ],
-        "saturday" : [
-            {"type" : "close", "value" : 3600},
-            {"type" : "open", "value" : 36000}
+        "saturday": [
+            {"type": "close", "value": 3600},
+            {"type": "open", "value": 36000}
         ],
-        "sunday" : [
-            {"type" : "close", "value" : 3600},
-            {"type" : "open","value" : 43200},
-            {"type" : "close","value" : 75600}
+        "sunday": [
+            {"type": "close", "value": 3600},
+            {"type": "open", "value": 43200},
+            {"type": "close", "value": 75600}
         ]
     }
-    '''
 
     # And the expected response
     expected = clean("""
@@ -217,7 +216,7 @@ def test_format_scheduling_full_example() -> None:
     """)
 
     # When format the scheduling
-    response = client.post(path, data=scheduling)
+    response = client.post(path, json=scheduling)
 
     # Then response must be the expected
     assert response.status_code == 200
