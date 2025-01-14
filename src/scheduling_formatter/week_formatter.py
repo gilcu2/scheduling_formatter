@@ -59,4 +59,6 @@ class WeekSchedulingPydantic(BaseModel):
     sunday: Optional[Day_Scheduling] = None
 
     def to_week_scheduling(self) -> WeekScheduling:
-        return cast(WeekScheduling, self.model_dump())
+        converted=dict(self)
+        without_none={k: v for k, v in converted.items() if v is not None}
+        return cast(WeekScheduling, without_none)

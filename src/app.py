@@ -1,8 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import PlainTextResponse
-from typing import Dict, Any, Optional, cast
-from scheduling_formatter.week_formatter import format_week, WeekScheduling
-from scheduling_formatter.day_formatter import Day_Scheduling
+from typing import Dict, Any
+from scheduling_formatter.week_formatter import format_week, WeekSchedulingPydantic
 import uvicorn
 import logging
 
@@ -21,9 +20,6 @@ def default_response(request: Request, full_path: str) -> Dict[str, Any]:
         "query_params": str(request.query_params),
         "url": str(request.url),
     }
-
-
-
 
 
 @app.post("/format_scheduling", response_class=PlainTextResponse)

@@ -1,5 +1,5 @@
 from scheduling_formatter.week_formatter import \
-    format_week, format_from_formatted_days, WeekDays, WeekSchedulingPydantic
+    format_week, format_from_formatted_days, WeekDays, WeekScheduling, WeekSchedulingPydantic, Day_Scheduling
 from scheduling_formatter.day_formatter import Action, ActionType
 from utils.str_extensions import clean
 
@@ -47,10 +47,21 @@ def test_format_week():
 
 def test_to_week_scheduling():
     # Given WeekSchedulingPydantic
-    scheduling_pydantic=WeekSchedulingPydantic(monday=[
-        Action(ActionType.open,3600),
-        Action(ActionType.close,7200),
+    scheduling_pydantic = WeekSchedulingPydantic(monday=[
+        Action(ActionType.open, 3600),
+        Action(ActionType.close, 7200),
     ])
 
     # And the expected WeekScheduling
-    scheduling
+    expected = {
+        "monday": [
+            Action(ActionType.open, 3600),
+            Action(ActionType.close, 7200),
+        ]
+    }
+
+    # When converted
+    converted = scheduling_pydantic.to_week_scheduling()
+
+    # Then it is the expected
+    assert converted == expected
