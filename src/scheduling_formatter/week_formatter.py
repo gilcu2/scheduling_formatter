@@ -2,7 +2,7 @@ from enum import Enum
 from scheduling_formatter.day_formatter import Day_Scheduling, format_day, closed_phrase
 from option import Result, Ok
 from pydantic import BaseModel
-from typing import Dict, Any, Optional, cast
+from typing import Dict, Optional, cast
 
 
 class WeekDays(str, Enum):
@@ -59,6 +59,6 @@ class WeekSchedulingPydantic(BaseModel):
     sunday: Optional[Day_Scheduling] = None
 
     def to_week_scheduling(self) -> WeekScheduling:
-        converted=dict(self)
-        without_none={k: v for k, v in converted.items() if v is not None}
+        converted = dict(self)
+        without_none = {k: v for k, v in converted.items() if v is not None}
         return cast(WeekScheduling, without_none)

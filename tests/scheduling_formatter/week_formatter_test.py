@@ -1,5 +1,5 @@
 from scheduling_formatter.week_formatter import \
-    format_week, format_from_formatted_days, WeekDays, WeekScheduling, WeekSchedulingPydantic, Day_Scheduling
+    format_week, format_from_formatted_days, WeekDays, WeekSchedulingPydantic
 from scheduling_formatter.day_formatter import Action, ActionType
 from utils.str_extensions import clean
 
